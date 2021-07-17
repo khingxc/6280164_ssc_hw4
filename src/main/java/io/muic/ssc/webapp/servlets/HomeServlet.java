@@ -16,7 +16,6 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
     private SecurityService securityService;
 
-
     @Override
     public void setSecurityService(SecurityService securityService){
         this.securityService = securityService;
@@ -42,4 +41,5 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
     public String getPattern() {
         return "/index.jsp";
     }
+
 }

@@ -38,9 +38,10 @@ public class UserService {
     // create new user
     public void createUser(String username, String password, String displayName) throws UserServiceException {
 
-        try{
+        try(
             Connection connection = databaseConnectionService.getConnection();
             PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL);
+            ){
             ps.setString(1, username);
             ps.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
             ps.setString(3, displayName);
@@ -58,9 +59,10 @@ public class UserService {
 
     // find user by username
     public User findByUsername(String username) {
-        try {
+        try(
             Connection connection = databaseConnectionService.getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_USER_SQL);
+        ){
             ps.setString(1, username);
             ResultSet resultSet = ps.executeQuery();
             resultSet.next();
@@ -84,9 +86,10 @@ public class UserService {
      */
     public List<User> findAll(){
         List<User> users = new ArrayList<>();
-        try {
+        try(
             Connection connection = databaseConnectionService.getConnection();
             PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USER_SQL);
+        ){
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()) {
                 users.add(

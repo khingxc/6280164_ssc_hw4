@@ -3,8 +3,9 @@
 <title>Home Page</title>
 <body>
 <h2>
-    Hello ${username}
+    Welcome, ${username}
 </h2>
+${users}
 </body>
 </html>
 

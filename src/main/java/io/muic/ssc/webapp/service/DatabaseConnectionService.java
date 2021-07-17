@@ -7,8 +7,12 @@ import io.muic.ssc.webapp.config.ConfigurationLoader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * We will make this singleton too.
+ */
 public class DatabaseConnectionService {
 
+    private static DatabaseConnectionService service;
     private final HikariDataSource ds;
 
     /**
@@ -32,8 +36,14 @@ public class DatabaseConnectionService {
         ds.setAutoCommit(false);
     }
 
-    public Connection getConnection() throws SQLException   {
-      return ds.getConnection();
+    public Connection getConnection() throws SQLException {
+        return ds.getConnection();
     }
 
+    public static DatabaseConnectionService getInstance() {
+        if (service == null){
+            service = new DatabaseConnectionService();
+        }
+        return service;
+    }
 }

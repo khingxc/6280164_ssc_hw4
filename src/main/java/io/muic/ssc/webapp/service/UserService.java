@@ -7,14 +7,29 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * UserService is used in too many places and we only need one instance of it so we will make it singleton
+ */
 public class UserService {
 
     private static final String INSERT_USER_SQL = "INSERT INTO hw4_table (username, password, display_name) VALUES (?, ?, ?);";
     private static final String SELECT_USER_SQL = "SELECT * FROM hw4_table WHERE username = ?;";
     private static final String SELECT_ALL_USER_SQL = "SELECT * FROM hw4_table;";
 
-
+    private static UserService service;
     private DatabaseConnectionService databaseConnectionService;
+
+    public UserService() {
+
+    }
+
+    public static UserService getInstance() {
+        if (service == null){
+            service = new UserService();
+            service.setDatabaseConnectionService(DatabaseConnectionService.getInstance());
+        }
+        return service;
+    }
 
     public void setDatabaseConnectionService(DatabaseConnectionService databaseConnectionService) {
         this.databaseConnectionService = databaseConnectionService;
@@ -115,12 +130,12 @@ public class UserService {
     }
 
     public static void main(String[] args) throws UserServiceException {
-        UserService userService = new UserService();
-        userService.setDatabaseConnectionService(new DatabaseConnectionService());
-//        userService.createUser("admin", "123678", "anonymous guy");
-        List<User> users = userService.findAll();
-        for (User user: users){
-            System.out.println(user.getUsername());
+        UserService userService = UserService.getInstance();
+        try {
+            userService.createUser("newbie", "180721", "BornToday");
+        }
+        catch(UserServiceException e){
+            e.printStackTrace();
         }
     }
 

@@ -11,7 +11,7 @@ public class LoginServlet extends AbstractRoutableHttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        RequestDispatcher reqDispatcher = req.getRequestDispatcher("WEB-INF/login.jsp");
+        RequestDispatcher reqDispatcher = req.getRequestDispatcher("WEB-INF/log-in.jsp");
         reqDispatcher.include(req, resp);
     }
 
@@ -26,7 +26,7 @@ public class LoginServlet extends AbstractRoutableHttpServlet {
             error = "username or password incorrect, please try again";
 
             req.setAttribute("error", error);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/login.jsp");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("WEB-INF/log-in.jsp");
             requestDispatcher.include(req, resp);
         }
 

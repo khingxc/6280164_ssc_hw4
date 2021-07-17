@@ -2,6 +2,7 @@ package io.muic.ssc.webapp.service;
 
 import io.muic.ssc.webapp.model.User;
 import org.apache.commons.lang.StringUtils;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,22 +12,18 @@ import java.util.Objects;
 
 public class SecurityService {
 
-    private Map<String, String> userCredentials = new HashMap<String, String>(){{
-       put("admin", "123456");
-       put("khingc", "99999");
-    }};
-
     private UserService userService;
 
     public boolean isAuthorize(HttpServletRequest req){
         String username = (String) req.getSession().getAttribute("username");
-        return (username != null && userCredentials.containsKey(username));
+        // do checking
+        // get user from user database
+        return (username != null && userService.findByUsername(username) != null);
     }
 
     public boolean authenticate(String username, String password, HttpServletRequest req){
-        String passwordInDB = userCredentials.get(username);
-        boolean isMatched = StringUtils.equals(password, passwordInDB);
-        if (isMatched){
+        User user = userService.findByUsername(username);
+        if (user != null && BCrypt.checkpw(password, user.getPassword())){
             req.getSession().setAttribute("username", username);
             return true;
         }
@@ -45,7 +42,7 @@ public class SecurityService {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User user = userService.findByUsername(username);
-        if (user != null && Objects.equals(user.getPassword(), password)) {
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
             return true;

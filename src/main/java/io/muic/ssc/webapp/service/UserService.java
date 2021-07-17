@@ -4,11 +4,15 @@ import io.muic.ssc.webapp.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
 
     private static final String INSERT_USER_SQL = "INSERT INTO hw4_table (username, password, display_name) VALUES (?, ?, ?);";
     private static final String SELECT_USER_SQL = "SELECT * FROM hw4_table WHERE username = ?;";
+    private static final String SELECT_ALL_USER_SQL = "SELECT * FROM hw4_table;";
+
 
     private DatabaseConnectionService databaseConnectionService;
 
@@ -52,21 +56,49 @@ public class UserService {
                     resultSet.getString("display_name")
             );
         } catch (SQLException e){
-            e.printStackTrace();
             return null;
         }
     }
 
-    // delete user
+
     // list all users
+
+    /**
+     * list all users in the database
+     * @return list of users, never return null
+     */
+    public List<User> findAll(){
+        List<User> users = new ArrayList<>();
+        try {
+            Connection connection = databaseConnectionService.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SELECT_ALL_USER_SQL);
+            ResultSet resultSet = ps.executeQuery();
+            while(resultSet.next()) {
+                users.add(
+                        new User(
+                                resultSet.getLong("id"),
+                                resultSet.getString("username"),
+                                resultSet.getString("password"),
+                                resultSet.getString("display_name")));
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    // delete user
     // update user by user id
 
     public static void main(String[] args) throws UserServiceException {
         UserService userService = new UserService();
         userService.setDatabaseConnectionService(new DatabaseConnectionService());
 //        userService.createUser("admin", "123678", "anonymous guy");
-        User user = userService.findByUsername("khingc");
-        System.out.println(user.getUsername());
+        List<User> users = userService.findAll();
+        for (User user: users){
+            System.out.println(user.getUsername());
+        }
     }
 
 }

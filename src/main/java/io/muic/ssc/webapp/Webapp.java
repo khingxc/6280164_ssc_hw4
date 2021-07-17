@@ -35,7 +35,7 @@ public class Webapp {
             tomcat.start();
             tomcat.getServer().await();
         }
-        catch (ServletException | LifecycleException e){
+        catch (LifecycleException e){
             e.printStackTrace();
         }
     }

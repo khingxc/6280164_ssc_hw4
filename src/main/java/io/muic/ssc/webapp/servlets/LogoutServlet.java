@@ -11,7 +11,7 @@ public class LogoutServlet extends AbstractRoutableHttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         securityService.logout(req);
-        resp.sendRedirect("/");
+        resp.sendRedirect("/login");
     }
 
     @Override

@@ -46,7 +46,8 @@ public class SecurityService {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }

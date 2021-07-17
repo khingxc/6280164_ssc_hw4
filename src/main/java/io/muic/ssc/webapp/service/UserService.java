@@ -89,7 +89,30 @@ public class UserService {
     }
 
     // delete user
+    public void deleteUserByUsername() {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    /**
+     * Users can only change their display name when updating profile
+     * @param id
+     * @param displayName
+     */
+
     // update user by user id
+    public void updateUserById(long id, String displayName) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    /**
+     * Change password method is separated from update user method because it normally
+     * never change password and update profile at the same time.
+     * @param newPassword
+     */
+
+    public void changePassword(String newPassword) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 
     public static void main(String[] args) throws UserServiceException {
         UserService userService = new UserService();

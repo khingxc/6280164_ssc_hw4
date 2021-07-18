@@ -6,6 +6,7 @@ package io.muic.ssc.webapp.servlets;
 import io.muic.ssc.webapp.model.User;
 import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,17 +30,22 @@ public class DeleteUserServlet extends AbstractRoutableHttpServlet{
             String username = securityService.getCurrentUsername(req);
             UserService userService = UserService.getInstance();
 
-
         try {
             User currentUser = userService.findByUsername(username);
             User deletingUser = userService.findByUsername(req.getParameter("username"));
-            if (userService.deleteUserByUsername(deletingUser.getUsername())){
-                req.getSession().setAttribute("hasError", false);
-                req.getSession().setAttribute("message", String.format("User %s is successfully deleted.", deletingUser.getUsername()));
+            if (StringUtils.equals(currentUser.getUsername(), deletingUser.getUsername())){
+                req.getSession().setAttribute("hasError", true);
+                req.getSession().setAttribute("message", "Unable to delete your own account");
             }
             else{
-                req.getSession().setAttribute("hasError", true);
-                req.getSession().setAttribute("message", String.format("Unable to delete the account named %s", deletingUser.getUsername()));
+                if (userService.deleteUserByUsername(deletingUser.getUsername())){
+                    req.getSession().setAttribute("hasError", false);
+                    req.getSession().setAttribute("message", String.format("User %s is successfully deleted.", deletingUser.getUsername()));
+                }
+                else{
+                    req.getSession().setAttribute("hasError", true);
+                    req.getSession().setAttribute("message", String.format("Unable to delete the account named %s", deletingUser.getUsername()));
+                }
             }
         }
         catch(Exception e){

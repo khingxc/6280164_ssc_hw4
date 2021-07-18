@@ -34,8 +34,13 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
             RequestDispatcher reqDispatcher = req.getRequestDispatcher("WEB-INF/home.jsp");
             reqDispatcher.include(req, resp);
+
+            req.removeAttribute("hasError");
+            req.removeAttribute("message");
         }
         else{
+            req.removeAttribute("hasError");
+            req.removeAttribute("message");
             resp.sendRedirect("/login");
         }
     }

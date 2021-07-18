@@ -21,6 +21,20 @@
     <h3 class="my-3">
         Welcome, ${username}
     </h3>
+    <c:if test="${not empty message}">
+        <c:choose>
+            <c:when test="${hasError}">
+                <div class="alert alert-danger" role="alert">
+                        ${message}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="alert alert-success" role="alert">
+                        ${message}
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
     <table class="table table-dark table-striped table-bordered">
         <thead>
         <tr>
@@ -39,8 +53,7 @@
                 <td class="align-middle">
                     <button class="btn btn-primary" type="button">Edit <i class="fa fa-pencil"></i></button>
                     <c:if test="${currentUser.username != user.username}">
-
-                        <button class="btn btn-warning" type="button">Delete <i class="fa fa-trash"></i></button>
+                        <a class="btn btn-warning" type="button" href="/user/delete?username=${user.username}">Delete <i class="fa fa-trash"></i></a>
                     </c:if>
                 </td>
             </tr>

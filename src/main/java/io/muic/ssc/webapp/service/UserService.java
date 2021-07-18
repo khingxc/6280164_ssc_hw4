@@ -15,6 +15,7 @@ public class UserService {
     private static final String INSERT_USER_SQL = "INSERT INTO hw4_table (username, password, display_name) VALUES (?, ?, ?);";
     private static final String SELECT_USER_SQL = "SELECT * FROM hw4_table WHERE username = ?;";
     private static final String SELECT_ALL_USER_SQL = "SELECT * FROM hw4_table;";
+    private static final String DELETE_USER_SQL = "DELETE FROM hw4_table WHERE username = ?;";
 
     private static UserService service;
     private DatabaseConnectionService databaseConnectionService;
@@ -106,9 +107,24 @@ public class UserService {
         return users;
     }
 
-    // delete user
-    public void deleteUserByUsername() {
-        throw new UnsupportedOperationException("not yet implemented");
+    /**
+     * delete user by user id
+     * @param
+     * @return true if successful
+     */
+    public boolean deleteUserByUsername(String username) {
+        try(
+                Connection connection = databaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(DELETE_USER_SQL);
+        ){
+            ps.setString(1, username);
+            int deleteCount = ps.executeUpdate();
+            connection.commit();
+            return deleteCount > 0;
+
+        } catch (SQLException e){
+            return false;
+        }
     }
 
     /**
@@ -135,7 +151,9 @@ public class UserService {
     public static void main(String[] args) throws UserServiceException {
         UserService userService = UserService.getInstance();
         try {
-            userService.createUser("newbie", "180721", "BornToday");
+            //userService.createUser("newbie", "180721", "BornToday");
+//            userService.createUser("khingc", "123456", "Khing C.");
+            userService.createUser("admin", "987654", "admin");
         }
         catch(UserServiceException e){
             e.printStackTrace();

@@ -69,7 +69,8 @@
                         <td class="py-2">${user.displayName}</td>
                         <td class="align-middle">
                             <!-- Button trigger modal -->
-                            <a class="btn btn-primary" type="button" href="/user/edit?username=${user.username}">Edit<i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-primary" type="button" href="/user/edit?username=${user.username}">Edit Profile<i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-secondary" type="button" href="/user/password?username=${user.username}">Edit Password<i class="fa fa-key"></i></a>
                             <c:if test="${currentUser.username != user.username}">
                                 <%--                        let's add remove user confirmation!--%>
                                 <button

@@ -67,6 +67,10 @@ public class CreateUserServlet extends AbstractRoutableHttpServlet{
             else if (StringUtils.isBlank(displayName)){
                 errorMessage = "Display Name can't be blank.";
             }
+            //check password validity
+            else if (StringUtils.isBlank(password)){
+                errorMessage = "Password can't be blank.";
+            }
             //check confirm password is correct
             else if (!StringUtils.equals(password, cpassword)){
                 errorMessage = "Confirmed password mismatches.";

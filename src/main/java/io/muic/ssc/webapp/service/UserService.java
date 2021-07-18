@@ -17,6 +17,7 @@ public class UserService {
     private static final String SELECT_ALL_USER_SQL = "SELECT * FROM hw4_table;";
     private static final String DELETE_USER_SQL = "DELETE FROM hw4_table WHERE username = ?;";
     private static final String UPDATE_USER_SQL = "UPDATE hw4_table SET display_name = ? WHERE username = ?;";
+    private static final String UPDATE_USER_PASSWORD_SQL = "UPDATE hw4_table SET password = ? WHERE username = ?;";
 
     private static UserService service;
     private DatabaseConnectionService databaseConnectionService;
@@ -157,8 +158,20 @@ public class UserService {
      * @param newPassword
      */
 
-    public void changePassword(String newPassword) {
-        throw new UnsupportedOperationException("not yet implemented");
+    public void changePassword(String username, String newPassword) throws UserServiceException{
+        try(
+                Connection connection = databaseConnectionService.getConnection();
+                PreparedStatement ps = connection.prepareStatement(UPDATE_USER_PASSWORD_SQL);
+        ){
+            ps.setString(1, BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+            ps.setString(2, username);
+
+            ps.executeUpdate();
+            connection.commit();
+        }
+        catch (SQLException e){
+            throw new UserServiceException(e.getMessage());
+        }
     }
 
     public static void main(String[] args) throws UserServiceException {

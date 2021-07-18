@@ -37,12 +37,17 @@
     <div class="row justify-content-md-center">
         <div class="col-sm 12 col-md-6 col-lg-4 mt-4">
             ${user.username}
-            <h3 style="text-align: center" class="mb-3">Edit <b style="color: hotpink">${username}</b> Profile</h3>
+            <h3 style="text-align: center" class="mb-3">Change <b style="color: hotpink">${username}</b> Password</h3>
             <p>${error}</p>
-            <form action="/user/edit?username=${username}" method="post" autocomplete="off">
+            <form action="/user/password?username=${username}" method="post" autocomplete="off">
                 <div class="input-group mb-3 input-group-md">
-                    <span class="input-group-text" id="displayName" style="width: 40px"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" name="displayName" placeholder="Display Name" aria-label="displayName" aria-describedby="displayName" autocomplete="off" value="${displayName}">
+                    <span class="input-group-text" id="password" style="width: 40px">
+                        <i class="fa fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="password" autocomplete="off" value="${password}">
+                </div>
+                <div class="input-group mb-3 input-group-md">
+                    <span class="input-group-text" id="cpassword" style="width: 40px"><i class="fa fa-lock"></i></span>
+                    <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" aria-label="Confirm Password" aria-describedby="cpassword" autocomplete="off" value="${cpassword}">
                 </div>
                 <div class="d-grid gap-2" style="text-align: right">
                     <button class="btn btn-success" type="submit">Save <i class="fa fa-save"></i></button>

@@ -3,6 +3,7 @@
 
 package io.muic.ssc.webapp.servlets;
 
+import io.muic.ssc.webapp.model.User;
 import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
 
@@ -26,9 +27,11 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
         if (securityService.isAuthorize(req)){
             String username = securityService.getCurrentUsername(req);
-            req.setAttribute("username", username);
             UserService userService = UserService.getInstance();
+
+            req.setAttribute("currentUser", userService.findByUsername(username));
             req.setAttribute("users", userService.findAll());
+
             RequestDispatcher reqDispatcher = req.getRequestDispatcher("WEB-INF/home.jsp");
             reqDispatcher.include(req, resp);
         }

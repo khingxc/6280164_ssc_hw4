@@ -25,9 +25,19 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
+//        if ((Boolean) req.getSession().getAttribute("flashSessionRead")){
+//            //flag the flash session to be removed next time
+//            req.removeAttribute("hasError");
+//            req.removeAttribute("message");
+//        }
+//        else{
+//            req.removeAttribute("hasError");
+//        }
+
         if (securityService.isAuthorize(req)){
             String username = securityService.getCurrentUsername(req);
             UserService userService = UserService.getInstance();
+
 
             req.setAttribute("currentUser", userService.findByUsername(username));
             req.setAttribute("users", userService.findAll());
@@ -35,8 +45,8 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
             RequestDispatcher reqDispatcher = req.getRequestDispatcher("WEB-INF/home.jsp");
             reqDispatcher.include(req, resp);
 
-            req.removeAttribute("hasError");
-            req.removeAttribute("message");
+            req.getSession().removeAttribute("hasError");
+            req.getSession().removeAttribute("message");
         }
         else{
             req.removeAttribute("hasError");

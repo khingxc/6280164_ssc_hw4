@@ -151,7 +151,7 @@ public class UserService {
     public static void main(String[] args) throws UserServiceException {
         UserService userService = UserService.getInstance();
         try {
-            //userService.createUser("newbie", "180721", "BornToday");
+            userService.createUser("newbie", "180721", "BornToday");
 //            userService.createUser("khingc", "123456", "Khing C.");
             userService.createUser("admin", "987654", "admin");
         }

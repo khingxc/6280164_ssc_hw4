@@ -29,10 +29,12 @@ public class DeleteUserServlet extends AbstractRoutableHttpServlet{
         if (securityService.isAuthorize(req)){
             String username = securityService.getCurrentUsername(req);
             UserService userService = UserService.getInstance();
+//            req.getSession().setAttribute("flashSessionRead", false);
 
         try {
             User currentUser = userService.findByUsername(username);
             User deletingUser = userService.findByUsername(req.getParameter("username"));
+
             if (StringUtils.equals(currentUser.getUsername(), deletingUser.getUsername())){
                 req.getSession().setAttribute("hasError", true);
                 req.getSession().setAttribute("message", "Unable to delete your own account");

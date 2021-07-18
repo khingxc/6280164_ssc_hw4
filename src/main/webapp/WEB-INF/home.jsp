@@ -61,7 +61,9 @@
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
-
+<%--<%--%>
+<%--    session.removeAttribute("hasError");--%>
+<%--    session.removeAttribute("message");--%>
+<%--%>--%>

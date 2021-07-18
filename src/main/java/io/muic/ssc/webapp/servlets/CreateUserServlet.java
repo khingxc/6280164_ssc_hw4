@@ -1,19 +1,15 @@
-//Note: Home Page -> Can't be accessed if user is not logged in.
-//      Login Page -> Can only be access if user is login
-
 package io.muic.ssc.webapp.servlets;
 
-import io.muic.ssc.webapp.model.User;
 import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
-public class HomeServlet extends AbstractRoutableHttpServlet{
+public class CreateUserServlet extends AbstractRoutableHttpServlet{
 
     private SecurityService securityService;
 
@@ -23,7 +19,7 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 //        if ((Boolean) req.getSession().getAttribute("flashSessionRead")){
 //            //flag the flash session to be removed next time
@@ -39,10 +35,9 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
             UserService userService = UserService.getInstance();
 
 
-            req.setAttribute("currentUser", userService.findByUsername(username));
-            req.setAttribute("users", userService.findAll());
+            req.setAttribute("user", userService.findByUsername(username));
 
-            RequestDispatcher reqDispatcher = req.getRequestDispatcher("/WEB-INF/home.jsp");
+            RequestDispatcher reqDispatcher = req.getRequestDispatcher("/WEB-INF/create.jsp");
             reqDispatcher.include(req, resp);
 
             req.getSession().removeAttribute("hasError");
@@ -57,7 +52,6 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
     @Override
     public String getPattern() {
-        return "/index.jsp";
+        return "/user/create";
     }
-
 }

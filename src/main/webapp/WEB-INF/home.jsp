@@ -18,76 +18,96 @@
             <a class="btn btn-danger" type="button" href="/logout"><i class="fa fa-sign-out"></i>Log Out</a>
         </div>
     </nav>
-    <h3 class="my-3">
-        Welcome, ${username}
-    </h3>
-    <c:if test="${not empty message}">
-        <c:choose>
-            <c:when test="${hasError}">
-                <div class="alert alert-danger" role="alert">
-                        ${message}
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="alert alert-success" role="alert">
-                        ${message}
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
-    <table class="table table-dark table-striped table-bordered">
-        <thead>
-        <tr>
-            <th class="py-2">Id</th>
-            <th class="py-2">Username</th>
-            <th class="py-2">Display Name</th>
-            <th class="py-2">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var = "user" items="${users}">
-            <tr>
-                <td class="py-2">${user.id}</td>
-                <td class="py-2">${user.username}</td>
-                <td class="py-2">${user.displayName}</td>
-                <td class="align-middle">
-                    <!-- Button trigger modal -->
-                    <button class="btn btn-primary" type="button">Edit<i class="fa fa-pencil"></i></button>
-                    <c:if test="${currentUser.username != user.username}">
-<%--                        let's add remove user confirmation!--%>
-                        <button
-                                class="btn btn-warning"
-                                type="button" href="/user/delete?username=${user.username}"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete-modal-${user.id}">
-                            Delete<i class="fa fa-trash"></i>
-                        </button>
+    <div class ="row">
+        <div class ="col-12">
+            <h3 class="my-3">
+                Welcome, ${username}
+            </h3>
+        </div>
+    </div>
+    <div class ="row">
+        <div class ="col-12">
+            <c:if test="${not empty message}">
+                <c:choose>
+                    <c:when test="${hasError}">
+                        <div class="alert alert-danger" role="alert">
+                                ${message}
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="alert alert-success" role="alert">
+                                ${message}
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+    </div>
+    <div class ="row mb-4">
+        <div class ="col-12">
+            <a class="btn btn-info" type="button" href="/user/create">
+                <i class="fa fa-user"></i> &nbsp; New User
+            </a>
+        </div>
+    </div>
+    <div class ="row">
+        <div class ="col-12">
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th class="py-2">Id</th>
+                    <th class="py-2">Username</th>
+                    <th class="py-2">Display Name</th>
+                    <th class="py-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var = "user" items="${users}">
+                    <tr>
+                        <td class="py-2">${user.id}</td>
+                        <td class="py-2">${user.username}</td>
+                        <td class="py-2">${user.displayName}</td>
+                        <td class="align-middle">
+                            <!-- Button trigger modal -->
+                            <button class="btn btn-primary" type="button">Edit<i class="fa fa-pencil"></i></button>
+                            <c:if test="${currentUser.username != user.username}">
+                                <%--                        let's add remove user confirmation!--%>
+                                <button
+                                        class="btn btn-warning"
+                                        type="button" href="/user/delete?username=${user.username}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#delete-modal-${user.id}">
+                                    Delete<i class="fa fa-trash"></i>
+                                </button>
 
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="delete-modal-${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="color:black">User Deleting Confirmation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body my-4" style="color:gray">
-                                        Do you want to delete <b style="color:darkred">${user.displayName}</b> (<b style="color:darkgreen">${user.username}</b>) ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <a class="btn btn-warning" href="/user/delete?username=${user.username}"> &nbsp; Delete<i class="fa fa-trash"></i></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="delete-modal-${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel" style="color:black">User Deleting Confirmation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body my-4" style="color:gray">
+                                                Do you want to delete <b style="color:darkred">${user.displayName}</b> (<b style="color:darkgreen">${user.username}</b>) ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a class="btn btn-warning" href="/user/delete?username=${user.username}"> &nbsp; Delete<i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

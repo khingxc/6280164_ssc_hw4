@@ -22,7 +22,8 @@ public class ServletRouter {
      {
 
         servletClasses.add(HomeServlet.class);
-         servletClasses.add(DeleteUserServlet.class);
+        servletClasses.add(DeleteUserServlet.class);
+         servletClasses.add(CreateUserServlet.class);
         servletClasses.add(LoginServlet.class);
         servletClasses.add(LogoutServlet.class);
 

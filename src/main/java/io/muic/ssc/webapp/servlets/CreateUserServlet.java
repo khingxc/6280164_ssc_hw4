@@ -23,11 +23,6 @@ public class CreateUserServlet extends AbstractRoutableHttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if (securityService.isAuthorize(req)){
-//            String username = securityService.getCurrentUsername(req);
-//            UserService userService = UserService.getInstance();
-
-
-//            req.setAttribute("user", userService.findByUsername(username));
 
             RequestDispatcher reqDispatcher = req.getRequestDispatcher("/WEB-INF/create.jsp");
             reqDispatcher.include(req, resp);
@@ -58,6 +53,7 @@ public class CreateUserServlet extends AbstractRoutableHttpServlet{
 
             UserService userService = UserService.getInstance();
             String errorMessage = null;
+
             //check username validity
             if (userService.findByUsername(username) != null){
                 errorMessage = String.format("Username %s has already been used.", username);
@@ -97,12 +93,6 @@ public class CreateUserServlet extends AbstractRoutableHttpServlet{
             req.setAttribute("displayName", displayName);
             req.setAttribute("password", password);
             req.setAttribute("cpassword", cpassword);
-
-//            String username = securityService.getCurrentUsername(req);
-//            UserService userService = UserService.getInstance();
-
-
-//            req.setAttribute("user", userService.findByUsername(username));
 
             RequestDispatcher reqDispatcher = req.getRequestDispatcher("/WEB-INF/create.jsp");
             reqDispatcher.include(req, resp);

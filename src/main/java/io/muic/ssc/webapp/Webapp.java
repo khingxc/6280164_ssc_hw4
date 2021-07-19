@@ -1,6 +1,5 @@
 package io.muic.ssc.webapp;
 
-import io.muic.ssc.webapp.service.DatabaseConnectionService;
 import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
 import io.muic.ssc.webapp.servlets.ServletRouter;
@@ -9,9 +8,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ErrorPage;
 
-import javax.servlet.ServletException;
 import java.io.File;
-import java.security.Security;
 
 public class Webapp {
 

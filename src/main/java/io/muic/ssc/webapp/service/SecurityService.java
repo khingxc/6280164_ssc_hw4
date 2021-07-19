@@ -1,14 +1,10 @@
 package io.muic.ssc.webapp.service;
 
 import io.muic.ssc.webapp.model.User;
-import org.apache.commons.lang.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class SecurityService {
 

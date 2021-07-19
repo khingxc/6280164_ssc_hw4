@@ -3,7 +3,6 @@
 
 package io.muic.ssc.webapp.servlets;
 
-import io.muic.ssc.webapp.model.User;
 import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
 
@@ -11,7 +10,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Date;
 
 public class HomeServlet extends AbstractRoutableHttpServlet{
 
@@ -24,15 +22,6 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-
-//        if ((Boolean) req.getSession().getAttribute("flashSessionRead")){
-//            //flag the flash session to be removed next time
-//            req.removeAttribute("hasError");
-//            req.removeAttribute("message");
-//        }
-//        else{
-//            req.removeAttribute("hasError");
-//        }
 
         if (securityService.isAuthorize(req)){
             String username = securityService.getCurrentUsername(req);

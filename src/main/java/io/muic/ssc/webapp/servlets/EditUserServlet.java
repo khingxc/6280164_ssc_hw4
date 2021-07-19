@@ -60,6 +60,7 @@ public class EditUserServlet extends AbstractRoutableHttpServlet{
             UserService userService = UserService.getInstance();
             User user = userService.findByUsername(username);
             String errorMessage = null;
+
             //check username validity
             if (user == null){
                 errorMessage = String.format("User %s does not exist.", username);

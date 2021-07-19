@@ -8,7 +8,6 @@ import io.muic.ssc.webapp.service.SecurityService;
 import io.muic.ssc.webapp.service.UserService;
 import org.apache.commons.lang.StringUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +28,6 @@ public class DeleteUserServlet extends AbstractRoutableHttpServlet{
         if (securityService.isAuthorize(req)){
             String username = securityService.getCurrentUsername(req);
             UserService userService = UserService.getInstance();
-//            req.getSession().setAttribute("flashSessionRead", false);
 
         try {
             User currentUser = userService.findByUsername(username);

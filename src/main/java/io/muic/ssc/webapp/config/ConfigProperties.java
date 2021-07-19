@@ -6,7 +6,6 @@ public class ConfigProperties {
     private String databaseUsername;
     private String databasePassword;
 
-
     public String getDatabaseDriverClassName() {
         return databaseDriverClassName;
     }

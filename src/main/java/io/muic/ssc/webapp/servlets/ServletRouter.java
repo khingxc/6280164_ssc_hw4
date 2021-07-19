@@ -31,8 +31,6 @@ public class ServletRouter {
 
      }
 
-
-
     public void init(Context ctx){
 
          UserService userService = new UserService();

@@ -14,7 +14,7 @@ public class Webapp {
 
     public static void main(String[] args) {
         Tomcat tomcat = new Tomcat();
-        tomcat.setPort(61083);
+        tomcat.setPort(80);
 
         File docbase = new File("src/main/webapp");
         docbase.mkdirs();

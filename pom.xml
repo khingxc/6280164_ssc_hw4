@@ -102,7 +102,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>io.muic.ssc.webapp.WebApp</mainClass>
+                            <mainClass>io.muic.ssc.webapp.Webapp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

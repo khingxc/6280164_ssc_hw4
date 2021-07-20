@@ -14,7 +14,7 @@
 <div class="container mt-4">
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href=""> SSC - Login Webapp</a>
+            <a class="navbar-brand" href="/"> SSC - Login Webapp</a>
             <a class="btn btn-danger" type="button" href="/logout"><i class="fa fa-sign-out"></i>Log Out</a>
         </div>
     </nav>
